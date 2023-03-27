@@ -1,16 +1,9 @@
-const Dotenv = require("dotenv").config();
-const { DB_NAME, DB_USER, DB_PASS,} = process.env;
-// console.log(process.env);
-
-// DB_NAME = 'mitrachat'
-// DB_USER = 'postgres' 
-// DB_PASS = 'stone'
-// SEC_KEY = 'IAMSICRATE'
+const { DB_NAME, DB_USER, DB_PASS,DB_CLIENT} = process.env;
 
 module.exports = {
 
   development: {
-    client: 'mysql2',
+    client: process.env.DB_CLIENT,
     connection: {
       database: DB_NAME,
       user:     DB_USER,
