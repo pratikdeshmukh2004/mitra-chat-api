@@ -1,14 +1,14 @@
 const { DB_NAME, DB_USER, DB_PASS,DB_CLIENT} = process.env;
+require("dotenv").config()
+console.log('====================================');
+console.log(process.env);
+console.log('====================================');
 
 module.exports = {
 
   development: {
     client: process.env.DB_CLIENT,
-    connection: {
-      database: DB_NAME,
-      user:     DB_USER,
-      password: DB_PASS
-    },
+    connection: process.DATABASE_URI,
     migrations: {
       tableName: 'knex_migrations'
     }
