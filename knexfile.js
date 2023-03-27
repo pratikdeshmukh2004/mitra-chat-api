@@ -8,7 +8,7 @@ module.exports = {
 
   development: {
     client: process.env.DB_CLIENT,
-    connection: process.DATABASE_URI,
+    connection: process.env.DATABASE_URI,
     migrations: {
       tableName: 'knex_migrations'
     }
