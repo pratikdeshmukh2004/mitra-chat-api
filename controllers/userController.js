@@ -1,4 +1,5 @@
 const userService = require("../services/userService");
+const { verifyToken } = require("../auth/auth");
 
 const SignUp = async (req, res) => {
   const { name, email, password } = req.body;
@@ -20,10 +21,26 @@ const Login = async (req, res) => {
       status: true,
       message: "Login Successfully...",
       user: result.user,
-      token: result.token,
+      accessToken: result.token,
     });
   }
   res.cookie("token", result.token).send(result);
 };
 
-module.exports = { SignUp, Login };
+
+const getUser = async (req, res) => {
+  const token = req.headers.authorization
+  console.log(token, 'token...');
+  const result = await verifyToken(token);
+  if (result) {
+    return res.json({
+      status: true,
+      message: "User verified...",
+      user: result.user,
+      accessToken: result.token,
+    });
+  }
+  res.cookie("token", result.token).send(result);
+};
+
+module.exports = { SignUp, Login, getUser };

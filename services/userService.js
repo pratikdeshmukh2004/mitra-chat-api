@@ -52,6 +52,8 @@ class Userservice {
       return { status: false, message: error.message };
     }
   }
+
+
 }
 
 module.exports = new Userservice();

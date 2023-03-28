@@ -1,13 +1,11 @@
 const jwt = require("jsonwebtoken");
 
-const verifyToken = (req, res, next) => {
-  let token = req.headers.cookie.split("=")[1];
+const verifyToken = (token) => {
   if (token) {
     const token_data = jwt.verify(token, process.env.SECRET_KEY);
-    res.tokendata = token_data;
-    return next();
+    return token_data;
   }
-  return res.send({ status: "error", message: "invalid auth." });
+  return null;
 };
 
 const genrateToken = (data) => {
