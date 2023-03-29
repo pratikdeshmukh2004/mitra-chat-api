@@ -16,7 +16,7 @@ const SignUp = async(req, res) => {
     console.log(user_details);
     if(user_details.statusCode) return res.json({status:false,message:'Internal server error'})
     if(user_details.nativeError?.errno) return res.json({status:false,message:"This user Email exists"})
-    return res.json({status:false,message:"user register successfully",user:user_details})
+    return res.json({status:true,message:"user register successfully",user:user_details})
   } catch (error) {
     console.log(error);
     return res.json({status:false,message:"Internal server error"})
@@ -47,7 +47,7 @@ const Login = async (req, res) => {
          const token = genrateToken(user_details);
          console.log(token);
          return res.json({
-           code: 200,
+           status: true,
            message: "Login Successfully...",
            user: user_details,
            token: token,
