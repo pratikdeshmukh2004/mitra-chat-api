@@ -1,16 +1,16 @@
 const userService = require("../services/userService");
 const { verifyToken } = require("../auth/auth");
 
-const SignUp = async (req, res) => {
+const SignUp = (req, res) => {
   const { name, email, password } = req.body;
-  const result = await userService.SignUp({ name, email, password });
-  if (result.code == 1062) {
-    return res.json({ status: false, message: "Email already exists." });
-  } else if (result.code) {
-    return res.json({ status: false, message: "Internal server error." });
-  } else {
+  userService.SignUp({ name, email, password }).then((result) => {
     return res.json({ status: true, data: result });
-  }
+  }).catch((error) => {
+    if (error.nativeError.code == 23505) {
+      return res.json({ status: false, message: "Email already exists." });
+    }
+    return res.json({ status: false, message: "Internal server error." });
+  })
 };
 
 const Login = async (req, res) => {
